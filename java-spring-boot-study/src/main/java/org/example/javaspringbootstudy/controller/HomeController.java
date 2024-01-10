@@ -1,23 +1,24 @@
 package org.example.javaspringbootstudy.controller;
 
+import org.example.javaspringbootstudy.model.Post;
+import org.example.javaspringbootstudy.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import java.util.List;
+
+@Controller
 public class HomeController {
-    @GetMapping("/home")
+    @Autowired
+    private PostService postService;
+
+    @GetMapping("/")
     public String home(Model model) {
+        List<Post> posts = postService.getAll();
+        model.addAttribute("posts", posts);
         return "home";
-    }
-
-    @GetMapping("/about")
-    public String about(Model model) {
-        return "about";
-    }
-
-    @GetMapping("/book")
-    public String book(Model model) {
-        return "book";
     }
 }
